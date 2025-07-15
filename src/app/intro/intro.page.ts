@@ -12,11 +12,11 @@ import { Router } from '@angular/router';
 })
 export class IntroPage implements OnInit {
 
-  //organizar to el intro con slides dinamicos 
+//organizar to el intro con slides dinamicos
 //minimo 4 slides
 //utilizar variable de class
 //utilizar ccs utilities
-//agregar un boton que nos lleve al home 
+//agregar un boton que nos lleve al home
 
   constructor(private router: Router) { }
 

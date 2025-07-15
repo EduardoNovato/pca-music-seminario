@@ -8,17 +8,17 @@
   max-width: 300px;
   height: auto;
   border-radius: 10px;
-  margin: 10% 0;
+  margin: 1.5% 0;
 }
 
 .slide-content h2 {
-  margin: 0;
-  font-size: 25px;
-  color: #f2ce05;
+  margin-top: 10px;
+  font-size: 1.4rem;
+  color: #ffffff;
 }
 
 .slide-content p {
-  font-size: 20px;
+  font-size: 14px;
   color: #fff;
   text-align: justify;
 }
@@ -30,4 +30,18 @@
 
 .bg-card-test {
   background: #f44ff4;
+}
+
+.rotate {
+  animation: girar 0s linear;
+}
+
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
 }

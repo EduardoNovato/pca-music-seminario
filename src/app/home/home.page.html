@@ -1,26 +1,42 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+  <ion-toolbar [style.--background]="colorActual">
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <ion-title [style.color]="modoOscuro ? 'white' : 'black'" style="margin: 0;">
+        No Me Compares Con Nadie - Silvestre Dangond
+      </ion-title>
+
+      <ion-button fill="clear" (click)="cambiarColor()">
+        <img
+          [style.transform]="'rotate(' + rotate + 'deg)'"
+          style="width: 24px; height: 24px; transition: transform 0.5s ease;"
+          src="https://cdn-icons-png.flaticon.com/128/11294/11294274.png"
+          alt="icono"
+        />
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [style.--background]="colorActual">
   <swiper-container
-  pagination="true"
   loop="true"
-  slides-per-view="1"
+  slides-per-view="2"
+  navigation="false"
   >
   <swiper-slide *ngFor="let genre of genres">
     <div class="slide-content">
-      <h2>{{ genre.title }}</h2>
+      <h2 [style.color]="modoOscuro ? 'white' : 'black'"> {{ genre.title }}</h2>
       <img [src]="genre.image" [alt]="genre.title">
-      <p>{{ genre.description }}</p>
+      <p [style.color]="modoOscuro ? 'white' : 'black'">{{ genre.description }}</p>
     </div>
   </swiper-slide>
 </swiper-container>
-<div [style.background-color]="colorActual">
+
+<ion-button (click)="goInto()">
+  Ir Intro
+</ion-button>
+
+<!-- <div [style.background-color]="colorActual">
   Hola mundo
 </div>
 <ion-button (click)="cambiarColor()">
@@ -35,10 +51,10 @@
   <ion-card-content>
     Here's a small text description for the card content. Nothing more, nothing less.
   </ion-card-content>
-</ion-card>
+</ion-card> -->
 
 <!-- Demo de Storage -->
- <div>
+ <!-- <div>
     <h3>Demo Ionic Storage</h3>
     <div [style.background-color]="colorActual">
       <p>Team Actual: {{ colorActual === colorOscuro ? 'Oscuro' : 'Claro'}}</p>
@@ -71,5 +87,5 @@
       <div>4 of 4 # # #</div>
     </ion-col>
   </ion-row>
-</ion-grid>
+</ion-grid> -->
 </ion-content>
