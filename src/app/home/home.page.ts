@@ -12,10 +12,11 @@ import { Router } from '@angular/router';
   imports: [IonicModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
+
 export class HomePage implements OnInit {
   colorClaro = 'var(--color-claro)';
   colorOscuro = 'var(--color-oscuro)';
-  colorActual = this.colorOscuro;
+  colorActual = this.colorClaro;
   rotate = 0;
   modoOscuro = false;
 
@@ -66,7 +67,6 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     await this.loadStorageData();
-    this.simularCargaDatos();
   }
 
   async cambiarColor(){
@@ -86,23 +86,9 @@ export class HomePage implements OnInit {
     }
   }
 
-  async simularCargaDatos() {
-    const data = await this.obtenerDatosSimudalos();
-    console.log('Datos simulados: ', data)
-  }
-
-  obtenerDatosSimudalos(){
-    return new Promise((resolve, reject) =>{
-      setTimeout(() =>{
-        resolve(['Rock', 'Pop', 'Jazz'])
-        reject("hubo error al obtener los datos")
-      }, 6000)
-    })
-  }
-
-  //crear una funcion para ir a ver la intro se va conectar con un boton que debomos agregar en el html y al hacer click ejecute esta funcion apra llevarma a ver la intro
   goInto(){
     console.log("Volver")
     this.router.navigateByUrl("/intro");
+    this.storageServcie.remove('nav')
   }
 }

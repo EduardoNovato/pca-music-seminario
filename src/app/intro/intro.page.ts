@@ -1,31 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { StorageService } from '../services/storage.service';
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.page.html',
   styleUrls: ['./intro.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class IntroPage implements OnInit {
 
-//organizar to el intro con slides dinamicos
-//minimo 4 slides
-//utilizar variable de class
-//utilizar ccs utilities
-//agregar un boton que nos lleve al home
+  navigation = "/home";
 
-  constructor(private router: Router) { }
+  constructor(private storageServcie: StorageService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  goBack(){
-    console.log("Volver")
-    this.router.navigateByUrl("/home");
-    //al volver atras o volver al home guardar en el storage que ya estuve o vi la pagina de intro
+  genres = [
+    { title: 'Bienvenido', image: '', description: '¡Conoce la app!' },
+    { title: 'Función 1', image: '', description: 'Hace esto y aquello.' },
+    { title: 'Función 2', image: '', description: 'También hace esto.' },
+    { title: 'Final', image: '', description: '¡Listo para comenzar!' },
+  ];
+
+  currentSlide = 0;
+
+  async nextSlide(swiper: any) {
+    if (this.currentSlide < this.genres.length - 1) {
+      this.currentSlide++;
+      swiper?.swiper.slideNext(100);
+    } else {
+      await this.storageServcie.set('nav', true);
+      this.router.navigateByUrl(this.navigation)
+    }
   }
 }

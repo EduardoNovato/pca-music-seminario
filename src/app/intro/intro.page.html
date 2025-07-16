@@ -5,6 +5,25 @@
 </ion-header>
 
 <ion-content>
-      <ion-title size="large">soy intro</ion-title>
-      <ion-button (click)="goBack()">Volver al Home</ion-button>
+  <swiper-container
+    #swiper
+    pagination="true"
+    slides-per-view="1"
+    loop="false"
+  >
+    <swiper-slide *ngFor="let genre of genres; let i = index">
+      <div class="">
+        <h2>{{ genre.title }}</h2>
+        <img [src]="genre.image" [alt]="genre.title">
+        <p>{{ genre.description }}</p>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+
+  <div>
+    <ion-button expand="block" (click)="nextSlide(swiper)">
+      {{ currentSlide === genres.length - 1 ? 'Empezar' : 'Siguiente' }}
+    </ion-button>
+  </div>
 </ion-content>
+
