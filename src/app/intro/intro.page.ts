@@ -21,17 +21,35 @@ export class IntroPage implements OnInit {
   ngOnInit() {
   }
 
-  genres = [
-    { title: 'Bienvenido', image: '', description: '¡Conoce la app!' },
-    { title: 'Función 1', image: '', description: 'Hace esto y aquello.' },
-    { title: 'Función 2', image: '', description: 'También hace esto.' },
-    { title: 'Final', image: '', description: '¡Listo para comenzar!' },
+  introSlides = [
+    {
+      title: '¡Bienvenido!',
+      image: 'https://media.istockphoto.com/id/1501791585/es/vector/un-grupo-de-j%C3%B3venes-diversos-agitan-sus-manos-en-gesto-de-bienvenida-las-personas-felices.jpg?s=612x612&w=0&k=20&c=tBNuZjIizQWooju2ZMbU0aHimjBapmBYqBij3-Vqg3w=',
+      description: 'Explora la música que te mueve. Descubre, escucha y siente cada canción como nunca antes.'
+    },
+    {
+      title: 'Conoce lo mejor de Silvestre',
+      image: 'https://www.noticiassuper.com/wp-content/uploads/2025/05/Musica-Silvestre.jpg',
+      description: 'Accede a álbumes y canciones con letras que cuentan historias. Desde lo romántico hasta lo picante.'
+    },
+    {
+      title: 'Disfruta sin interrupciones',
+      image: 'https://i.ytimg.com/vi/vuZt6jTvikY/maxresdefault.jpg',
+      description: 'Escucha lo que te gusta con una experiencia fluida, clara y personalizada para ti.'
+    },
+    {
+      title: '¡Empecemos a escuchar!',
+      image: 'https://ljpclinapulido.wordpress.com/wp-content/uploads/2011/10/silvestre.jpg',
+      description: 'Tú eliges la música, nosotros te damos el escenario. ¡Vamos a comenzar!'
+    }
   ];
+
+
 
   currentSlide = 0;
 
   async nextSlide(swiper: any) {
-    if (this.currentSlide < this.genres.length - 1) {
+    if (this.currentSlide < this.introSlides.length - 1) {
       this.currentSlide++;
       swiper?.swiper.slideNext(100);
     } else {
