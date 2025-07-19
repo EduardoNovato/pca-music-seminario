@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IonicModule, ToastController, NavController } from '@ionic/angular';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -82,9 +82,11 @@ export class LoginPage implements OnInit {
     this.authService
       .loginUser(credentians)
       .then((res) => {
+        this.errorMessage = '';
         this.navController.navigateForward('/intro');
       })
       .catch((error) => {
+        this.errorMessage = error;
         console.error(error);
       });
   }
