@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { IonicModule, ToastController, NavController } from '@ionic/angular';
 import { AuthService } from '../../core/services/auth.service';
+import { authCredentials } from 'src/app/core/models/auth.model';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -49,7 +51,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private toastController: ToastController,
     private authService: AuthService,
-    private navController: NavController
+    private navController: NavController,
+    private storageServcie: StorageService
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -78,11 +81,12 @@ export class LoginPage implements OnInit {
     }
   }
 
-  loginUser(credentians: any) {
+  async loginUser(credentians: authCredentials) {
     this.authService
       .loginUser(credentians)
       .then((res) => {
         this.errorMessage = '';
+        this.storageServcie.set('login', true);
         this.navController.navigateForward('/intro');
       })
       .catch((error) => {
