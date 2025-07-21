@@ -25,4 +25,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./screens/login/login.page').then((m) => m.LoginPage),
   },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./screens/register/register.component').then(
+        (m) => m.RegisterComponent
+      ),
+  },
 ];
