@@ -28,8 +28,6 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () =>
-      import('./screens/register/register.component').then(
-        (m) => m.RegisterComponent
-      ),
+      import('./screens/register/register.page').then((m) => m.RegisterPage),
   },
 ];
