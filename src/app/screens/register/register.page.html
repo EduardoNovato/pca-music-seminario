@@ -8,7 +8,7 @@
   <figure class="profile-default-image ion-text-center">
     <p>Ingresa tus datos</p>
   </figure>
-  <form [formGroup]="loginForm" (ngSubmit)="registerUser(loginForm.value)">
+  <form [formGroup]="register" (ngSubmit)="registerUser(register.value)">
     <ion-item>
       <ion-input
         label="Nombre"
@@ -47,15 +47,14 @@
       shape="round"
       color="success"
       type="submit"
-      [disabled]="loginForm.invalid"
+      [disabled]="register.invalid"
     >
       Login
     </ion-button>
   </form>
   <div class="ion-text-center" style="margin-top: 16px">
     <ion-text>
-      ¿No tienes cuenta?
-      <ion-router-link routerLink="/register"> Regístrate aquí</ion-router-link>
+      <ion-router-link routerLink="/register"> Login aquí</ion-router-link>
     </ion-text>
   </div>
 </ion-content>

@@ -4,14 +4,8 @@ import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () =>
-      import('./screens/home/home.page').then((m) => m.HomePage),
-    canActivate: [AuthGuard, IntroGuard],
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'menu/home',
     pathMatch: 'full',
   },
   {
@@ -29,5 +23,18 @@ export const routes: Routes = [
     path: 'register',
     loadComponent: () =>
       import('./screens/register/register.page').then((m) => m.RegisterPage),
+  },
+  {
+    path: 'menu',
+    loadComponent: () =>
+      import('./screens/menu/menu.page').then((m) => m.MenuPage),
+    children: [
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./screens/home/home.page').then((m) => m.HomePage),
+        canActivate: [AuthGuard, IntroGuard],
+      },
+    ],
   },
 ];

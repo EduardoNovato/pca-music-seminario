@@ -13,21 +13,22 @@ import { IonicModule, NavController, ToastController } from '@ionic/angular';
 
 import { AuthService } from '../../core/services/auth.service';
 import { StorageService } from '../../core/services/storage.service';
-import { authCredentials } from '../../core/models/auth.model';
+import { loginCredentials } from '../../core/models/auth.model';
 
-const VALIDATOR_MESSAGES = {
-  email: [
-    { type: 'required', message: 'Email obligatorio' },
-    { type: 'email', message: 'Email no válido' },
-  ],
-  password: [
-    { type: 'required', message: 'Password obligatorio' },
-    {
-      type: 'minlength',
-      message: 'La contraseña no puede ser menor a 8 caracteres',
-    },
-  ],
-};
+const VALIDATOR_MESSAGES: Record<string, { type: string; message: string }[]> =
+  {
+    email: [
+      { type: 'required', message: 'Email obligatorio' },
+      { type: 'email', message: 'Email no válido' },
+    ],
+    password: [
+      { type: 'required', message: 'Password obligatorio' },
+      {
+        type: 'minlength',
+        message: 'La contraseña no puede ser menor a 8 caracteres',
+      },
+    ],
+  };
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -56,18 +57,18 @@ export class LoginPage implements OnInit {
     private readonly storageService: StorageService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.initializeForm();
   }
 
-  private initializeForm(): void {
+  private initializeForm() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
-  async presentToast(field: 'email' | 'password'): Promise<void> {
+  async presentToast(field: 'email' | 'password') {
     const control = this.loginForm.get(field);
     if (!control || !control.touched || control.valid) return;
 
@@ -86,7 +87,7 @@ export class LoginPage implements OnInit {
     await toast.present();
   }
 
-  async loginUser(credentials: authCredentials): Promise<void> {
+  async loginUser(credentials: loginCredentials) {
     try {
       await this.authService.loginUser(credentials);
       this.errorMessage = '';
@@ -95,6 +96,7 @@ export class LoginPage implements OnInit {
     } catch (error) {
       this.errorMessage = error;
       console.error(error);
+      this.storageService.set('login', false);
     }
   }
 }

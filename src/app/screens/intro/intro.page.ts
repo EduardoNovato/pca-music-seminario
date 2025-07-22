@@ -24,7 +24,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 export class IntroPage implements OnInit, AfterViewInit {
   @ViewChild('swiper', { static: false }) swiperRef!: ElementRef;
 
-  navigation = '/home';
+  navigation = '/menu/home';
   currentSlideIndex = 0;
 
   constructor(

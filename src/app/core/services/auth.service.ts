@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { authCredentials } from '../models/auth.model';
+import { loginCredentials, registerCredentials } from '../models/auth.model';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private storage: StorageService) {}
 
-  loginUser(credentians: authCredentials) {
+  loginUser(credentians: loginCredentials): Promise<string> {
     return new Promise((accept, reject) => {
       if (
         credentians.email == 'ejco@gmail.com' &&
@@ -27,5 +27,21 @@ export class AuthService {
   async isAuthenticated(): Promise<boolean> {
     const loginStatus = await this.storage.get('login');
     return loginStatus === true;
+  }
+
+  registerUser(credentials: registerCredentials): Promise<string> {
+    return new Promise((accept, reject) => {
+      if (
+        credentials.name != null &&
+        credentials.last_name != null &&
+        credentials.email != null &&
+        credentials.password != null
+      ) {
+        accept('Registro correcto');
+        this.storage.set('user', credentials);
+      } else {
+        reject('Registro incorrecto');
+      }
+    });
   }
 }
