@@ -62,6 +62,7 @@ src/
       models/         # Modelos de datos
       services/       # Servicios (auth, storage)
     screens/
+      menu/           # Menu Desplegable
       home/           # Pantalla principal
       intro/          # Pantalla de introducción
       login/          # Pantalla de login
