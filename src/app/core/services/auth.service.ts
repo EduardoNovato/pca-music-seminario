@@ -6,15 +6,30 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class AuthService {
+  email = '';
+  password = '';
   loggedIn = false;
 
   constructor(private storage: StorageService) {}
 
-  loginUser(credentians: loginCredentials): Promise<string> {
+  async loadStorageData() {
+    const [savedEmail, savedPassword] = await Promise.all([
+      this.storage.get('email'),
+      this.storage.get('password'),
+    ]);
+    this.email = savedEmail || '';
+    this.password = savedPassword || '';
+  }
+
+  async loginUser(credentians: loginCredentials): Promise<string> {
+    await this.loadStorageData();
+
     return new Promise((accept, reject) => {
       if (
-        credentians.email == 'ejco@gmail.com' &&
-        credentians.password == '12345678'
+        (credentians.email == 'ejco@gmail.com' &&
+          credentians.password == '12345678') ||
+        (credentians.email === this.email &&
+          credentians.password === this.password)
       ) {
         this.storage.set('login', true);
         accept('Login Correcto');
