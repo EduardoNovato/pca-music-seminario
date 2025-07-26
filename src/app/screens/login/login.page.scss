@@ -1,16 +1,9 @@
-.login-content {
-  --padding-start: 0;
-  --padding-end: 0;
-  --padding-top: 0;
-  --padding-bottom: 0;
-}
-
 .login-container {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 0 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(110deg, #00051a 0%, #686868 100%);
 }
 
 /* Header Section */
@@ -22,8 +15,6 @@
   align-items: center;
   text-align: center;
   padding: 40px 0 20px 0;
-  min-height: 35vh;
-  min-height: 35vh;
 }
 
 .logo-container {
@@ -58,8 +49,6 @@
   border-radius: 24px 24px 0 0;
   padding: 32px 24px 24px 24px;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-  min-height: 65vh;
-  min-height: 65vh;
 }
 
 .input-group {
@@ -121,7 +110,7 @@
 }
 
 .login-btn {
-  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --background: #51566c;
   --color: white;
   --border-radius: 12px;
   --padding-top: 16px;
@@ -185,8 +174,8 @@
 }
 
 .register-btn {
-  --border-color: #667eea;
-  --color: #667eea;
+  --border-color: #3d4153;
+  --color: #3d4153;
   --border-radius: 12px;
   --padding-top: 14px;
   --padding-bottom: 14px;
@@ -195,47 +184,11 @@
 }
 
 .register-btn:hover {
-  --background: #667eea;
+  --background: #51566c;
   --color: white;
   transform: translateY(-1px);
 }
 
-/* Responsive adjustments */
-@media (max-height: 700px) {
-  .header-section {
-    min-height: 25vh;
-    padding: 20px 0 10px 0;
-  }
-  
-  .logo-icon {
-    font-size: 60px;
-  }
-  
-  .welcome-title {
-    font-size: 28px;
-  }
-  
-  .form-section {
-    min-height: 75vh;
-    padding: 24px 24px 16px 24px;
-  }
-}
-
-@media (max-width: 375px) {
-  .login-container {
-    padding: 0 16px;
-  }
-  
-  .form-section {
-    padding: 24px 16px 16px 16px;
-  }
-  
-  .footer-section {
-    padding: 16px 16px 24px 16px;
-  }
-}
-
-/* Animation for form validation errors */
 .custom-input.ion-invalid.ion-touched {
   border-color: #dc3545;
   --background: #fff5f5;
@@ -249,39 +202,4 @@
 .login-btn.loading {
   --background: #e9ecef;
   pointer-events: none;
-}
-
-/* Responsive adjustments */
-@media (max-height: 700px) {
-  .header-section {
-    min-height: 25vh;
-    padding: 20px 0 10px 0;
-  }
-  
-  .logo-icon {
-    font-size: 60px;
-  }
-  
-  .welcome-title {
-    font-size: 28px;
-  }
-  
-  .form-section {
-    min-height: 75vh;
-    padding: 24px 24px 16px 24px;
-  }
-}
-
-@media (max-width: 375px) {
-  .login-container {
-    padding: 0 16px;
-  }
-  
-  .form-section {
-    padding: 24px 16px 16px 16px;
-  }
-  
-  .footer-section {
-    padding: 16px 16px 24px 16px;
-  }
 }
