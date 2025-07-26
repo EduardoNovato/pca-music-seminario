@@ -1,10 +1,10 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="login-content">
+<ion-content [fullscreen]="true" class="login-content">
   <div class="login-container">
     <!-- Header Section -->
     <div class="header-section">
@@ -41,18 +41,24 @@
               (ionBlur)="presentToast('password')"
               class="input-field"
             ></ion-input>
-            <ion-button
-              fill="clear"
-              slot="end"
+            <ion-button 
+              fill="clear" 
+              slot="end" 
               (click)="togglePassword()"
               class="password-toggle"
             >
-              <ion-icon
+              <ion-icon 
                 [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
                 class="toggle-icon"
               ></ion-icon>
             </ion-button>
           </ion-item>
+        </div>
+
+        <div class="forgot-password">
+          <ion-button fill="clear" size="small" class="forgot-btn">
+            ¿Olvidaste tu contraseña?
+          </ion-button>
         </div>
 
         <ion-button
@@ -72,12 +78,12 @@
       <div class="divider">
         <span class="divider-text">o</span>
       </div>
-
+      
       <div class="register-section">
         <p class="register-text">¿No tienes cuenta?</p>
-        <ion-button
-          fill="outline"
-          expand="block"
+        <ion-button 
+          fill="outline" 
+          expand="block" 
           routerLink="/register"
           class="register-btn"
         >
