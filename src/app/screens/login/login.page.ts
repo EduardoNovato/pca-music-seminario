@@ -44,6 +44,7 @@ const VALIDATOR_MESSAGES: Record<string, { type: string; message: string }[]> =
 })
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
+  showPassword = false;
 
   errorMessage: any = '';
 
@@ -85,6 +86,10 @@ export class LoginPage implements OnInit {
     });
 
     await toast.present();
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 
   async loginUser(credentials: loginCredentials) {
