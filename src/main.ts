@@ -17,6 +17,8 @@ import { Storage } from '@ionic/storage-angular';
 
 import { addIcons } from 'ionicons';
 import * as allIcons from 'ionicons/icons';
+import { importProvidersFrom } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 addIcons(allIcons);
 
@@ -24,6 +26,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
+    importProvidersFrom(HttpClientModule),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     Storage,
   ],

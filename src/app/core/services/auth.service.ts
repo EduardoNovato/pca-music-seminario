@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { loginCredentials, registerCredentials } from '../models/auth.model';
 import { StorageService } from './storage.service';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +11,9 @@ export class AuthService {
   email = '';
   password = '';
   loggedIn = false;
+  url = 'https://music.fly.dev';
 
-  constructor(private storage: StorageService) {}
+  constructor(private storage: StorageService, private http: HttpClient) {}
 
   async loadStorageData() {
     const [savedEmail, savedPassword] = await Promise.all([
@@ -21,22 +24,48 @@ export class AuthService {
     this.password = savedPassword || '';
   }
 
-  async loginUser(credentians: loginCredentials): Promise<string> {
-    await this.loadStorageData();
-
-    return new Promise((accept, reject) => {
-      if (
-        (credentians.email == 'ejco@gmail.com' &&
-          credentians.password == '12345678') ||
-        (credentians.email === this.email &&
-          credentians.password === this.password)
-      ) {
-        this.storage.set('login', true);
-        accept('Login Correcto');
-      } else {
-        reject('Login Incorrecto');
+  async loginUser(credentials: loginCredentials) {
+    const body = {
+      user: {
+        email: credentials.email,
+        password: credentials.password
       }
-    });
+    };
+    try {
+      const response: any = await firstValueFrom(this.http.post(this.url + '/login', body));
+      if (response && response.status === 'OK') {
+        await this.storage.set('login', true);
+        await this.storage.set('user', response.user);
+        console.log('Login successful:', response);
+        return response;
+      } else {
+        throw new Error(response?.msg || 'Login Incorrecto');
+      }
+    } catch (error: any) {
+      throw new Error(error?.error?.msg || error?.message || 'Login Incorrecto');
+    }
+  }
+
+  async registerUser(credentials: registerCredentials){
+    const body = {
+      user: {
+        email: credentials.email,
+        password: credentials.password,
+        name: credentials.name,
+        last_name: credentials.last_name
+      }
+    };
+    try {
+      const response: any = await firstValueFrom(this.http.post(this.url + '/signup', body));
+      if (response && response.status === 'OK') {
+        console.log('Registration successful:', response);
+        return response;
+      } else {
+        throw new Error(response?.msg || 'Registration failed');
+      }
+    } catch (error: any) {
+      throw new Error(error?.error?.msg || error?.message || 'Registration failed');
+    }
   }
 
   async isAuthenticated(): Promise<boolean> {
@@ -44,19 +73,9 @@ export class AuthService {
     return loginStatus === true;
   }
 
-  registerUser(credentials: registerCredentials): Promise<string> {
-    return new Promise((accept, reject) => {
-      if (
-        credentials.name != null &&
-        credentials.last_name != null &&
-        credentials.email != null &&
-        credentials.password != null
-      ) {
-        accept('Registro correcto');
-        this.storage.set('user', credentials);
-      } else {
-        reject('Registro incorrecto');
-      }
-    });
+  async logout() {
+    await this.storage.remove('login');
+    await this.storage.remove('user');
+    console.log('Logout successful');
   }
 }
