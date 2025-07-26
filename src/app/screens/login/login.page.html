@@ -1,46 +1,90 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <figure class="profile-default-image ion-text-center">
-    <p>Ingresa tus datos</p>
-    <img src="/assets/user.png" />
-  </figure>
-  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
-    <ion-item>
-      <ion-input
-        label="Email"
-        labelPlacement="floating"
-        formControlName="email"
-        (ionBlur)="presentToast('email')"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input
-        type="password"
-        label="Password"
-        labelPlacement="floating"
-        formControlName="password"
-        (ionBlur)="presentToast('password')"
-      ></ion-input>
-    </ion-item>
-    <ion-button
-      expand="full"
-      shape="round"
-      color="success"
-      type="submit"
-      [disabled]="loginForm.invalid"
-    >
-      Login
-    </ion-button>
-  </form>
-  <div class="ion-text-center" style="margin-top: 16px">
-    <ion-text>
-      ¿No tienes cuenta?
-      <ion-router-link routerLink="/register"> Regístrate aquí</ion-router-link>
-    </ion-text>
+<ion-content class="login-content">
+  <div class="login-container">
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="logo-container">
+        <ion-icon name="musical-notes" class="logo-icon"></ion-icon>
+      </div>
+      <h1 class="welcome-title">Bienvenido</h1>
+      <p class="welcome-subtitle">Inicia sesión para continuar</p>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section">
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+        <div class="input-group">
+          <ion-item lines="none" class="custom-input">
+            <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+            <ion-input
+              type="email"
+              placeholder="Correo electrónico"
+              formControlName="email"
+              (ionBlur)="presentToast('email')"
+              class="input-field"
+            ></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="input-group">
+          <ion-item lines="none" class="custom-input">
+            <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+            <ion-input
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Contraseña"
+              formControlName="password"
+              (ionBlur)="presentToast('password')"
+              class="input-field"
+            ></ion-input>
+            <ion-button
+              fill="clear"
+              slot="end"
+              (click)="togglePassword()"
+              class="password-toggle"
+            >
+              <ion-icon
+                [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+                class="toggle-icon"
+              ></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+
+        <ion-button
+          expand="block"
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="login-btn"
+        >
+          <ion-icon name="log-in-outline" slot="start"></ion-icon>
+          Iniciar Sesión
+        </ion-button>
+      </form>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer-section">
+      <div class="divider">
+        <span class="divider-text">o</span>
+      </div>
+
+      <div class="register-section">
+        <p class="register-text">¿No tienes cuenta?</p>
+        <ion-button
+          fill="outline"
+          expand="block"
+          routerLink="/register"
+          class="register-btn"
+        >
+          <ion-icon name="person-add-outline" slot="start"></ion-icon>
+          Crear cuenta
+        </ion-button>
+      </div>
+    </div>
   </div>
 </ion-content>

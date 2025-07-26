@@ -27,6 +27,15 @@ export class MusicService {
       });
   }
 
+  async getAlbum(id: string) {
+    return fetch(`${this.url}/tracks/album/${id}`)
+      .then(response => response.json())
+      .catch(error => {
+        console.error('Error fetching album:', error);
+        throw error;
+      });
+  }
+
   async getArtists() {
     return fetch(`${this.url}/artists`)
       .then(response => response.json())

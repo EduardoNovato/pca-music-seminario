@@ -64,7 +64,8 @@ export class AuthService {
         throw new Error(response?.msg || 'Registration failed');
       }
     } catch (error: any) {
-      throw new Error(error?.error?.msg || error?.message || 'Registration failed');
+      console.error('Backend error:', error);
+      throw error?.error?.msg || error?.message || 'Login incorrecto';
     }
   }
 

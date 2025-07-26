@@ -1,43 +1,76 @@
 <ion-header>
-  <ion-toolbar [style.--background]="colorActual">
-    <div
-      style="
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-      "
-    >
-      <ion-title
-        [style.color]="modoOscuro ? 'white' : 'black'"
-        style="margin: 0"
-      >
-        No Me Compares Con Nadie
-      </ion-title>
+  <ion-toolbar class="custom-toolbar">
+    <div class="toolbar-content">
+      <div class="title-section">
+        <ion-icon name="musical-notes" class="header-icon"></ion-icon>
+        <ion-title class="custom-title">
+          No Me Compares Con Nadie
+        </ion-title>
+      </div>
 
-      <ion-button fill="clear" (click)="cambiarColor()">
-        <img
+      <ion-button fill="clear" (click)="cambiarColor()" class="theme-toggle">
+        <ion-icon
+          [name]="modoOscuro ? 'sunny-outline' : 'moon-outline'"
           [style.transform]="'rotate(' + rotate + 'deg)'"
-          style="width: 24px; height: 24px; transition: transform 0.5s ease"
-          src="https://cdn-icons-png.flaticon.com/128/11294/11294274.png"
-          alt="icono"
-        />
+          class="toggle-icon"
+        ></ion-icon>
       </ion-button>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [style.--background]="colorActual">
-  <swiper-container loop="false" slides-per-view="2" navigation="false">
-    <swiper-slide *ngFor="let album of albums">
-      <div class="slide-content">
-        <h2 [style.color]="modoOscuro ? 'white' : 'black'">
-          {{ album.name }}
-        </h2>
-        <img [src]="album.image" [alt]="album.name" />
-      </div>
-    </swiper-slide>
-  </swiper-container>
+<ion-content class="home-content">
+  <div class="content-container">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h1 class="welcome-title">Bienvenido a tu música</h1>
+      <p class="welcome-subtitle">Descubre y disfruta tus álbumes favoritos</p>
+    </div>
 
-  <ion-button class="p-10" (click)="goInto()"> Ir Intro </ion-button>
+    <!-- Albums Section -->
+    <div class="albums-section">
+      <div class="section-header">
+        <h2 class="section-title">Álbumes</h2>
+        <ion-icon name="library-outline" class="section-icon"></ion-icon>
+      </div>
+
+      <div class="albums-container">
+        <swiper-container
+          loop="false"
+          slides-per-view="2"
+          space-between="16"
+          navigation="false"
+          class="albums-swiper"
+        >
+          <swiper-slide *ngFor="let album of albums" class="album-slide">
+            <div class="album-card" (click)="showSongs(album.id)">
+              <div class="album-image-container">
+                <img [src]="album.image" [alt]="album.name" class="album-image" />
+                <div class="play-overlay">
+                  <ion-icon name="play-circle" class="play-icon"></ion-icon>
+                </div>
+              </div>
+              <div class="album-info">
+                <h3 class="album-title">{{ album.name }}</h3>
+                <p class="album-subtitle">Álbum</p>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="actions-section">
+      <ion-button
+        expand="block"
+        fill="outline"
+        (click)="goInto()"
+        class="action-btn"
+      >
+        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+        Volver a Intro
+      </ion-button>
+    </div>
+  </div>
 </ion-content>
