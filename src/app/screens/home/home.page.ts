@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
   modoOscuro = false;
   tracks: any;
   albums: any;
+  artists: any;
 
   constructor(private storageServcie: StorageService, private router: Router, private musicService: MusicService, private modalController: ModalController) {}
 
@@ -27,6 +28,7 @@ export class HomePage implements OnInit {
     await this.loadStorageData();
     await this.loadTraks();
     await this.loadAlbums();
+    await this.loadArtists();
   }
 
   async loadTraks() {
@@ -46,6 +48,15 @@ export class HomePage implements OnInit {
     });
   }
 
+  async loadArtists() {
+    this.musicService.getArtists().then((artists) => {
+      this.artists =  artists;
+      console.log('Artists loaded:', this.artists);
+    }).catch((error) => {
+      console.error('Error loading artists:', error);
+    });
+  }
+
   async showSongs(albumId: string) {
     console.log('Album ID:', albumId);
     const songs = await this.musicService.getAlbum(albumId);
@@ -57,6 +68,13 @@ export class HomePage implements OnInit {
       } ,
     });
     await modal.present();
+  }
+
+  async showArtist(artistId: string) {
+    console.log('Artist ID:', artistId);
+    const artist = await this.musicService.getArtist(artistId);
+    console.log('Artist details:', artist);
+
   }
 
   async cambiarColor() {

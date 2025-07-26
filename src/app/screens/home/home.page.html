@@ -60,6 +60,38 @@
       </div>
     </div>
 
+    <!-- Artists Section -->
+    <div class="artists-section">
+      <div class="section-header">
+        <h2 class="section-title">Artistas</h2>
+        <ion-icon name="person-outline" class="section-icon"></ion-icon>
+      </div>
+      <div class="artists-container">
+        <swiper-container
+          loop="false"
+          slides-per-view="2"
+          space-between="16"
+          navigation="false"
+          class="artists-swiper"
+        >
+          <swiper-slide *ngFor="let artist of artists" class="artist-slide">
+            <div class="artist-card" (click)="showArtist(artist.id)">
+              <div class="artist-image-container">
+                <img [src]="artist.image" [alt]="artist.name" class="artist-image" />
+                <div class="play-overlay">
+                  <ion-icon name="play-circle" class="play-icon"></ion-icon>
+                </div>
+              </div>
+              <div class="artist-info">
+                <h3 class="artist-name">{{ artist.name }}</h3>
+                <p class="artist-subtitle">Artista</p>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </div>
+
     <!-- Quick Actions -->
     <div class="actions-section">
       <ion-button
