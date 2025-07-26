@@ -33,24 +33,24 @@ PCA Music es una aplicación móvil desarrollada como proyecto de grado/seminari
 ## Instalación y ejecución
 
 1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/EduardoNovato/pca-music-seminario.git
-   cd pca-ionic-music
-   ```
+    ```bash
+    git clone https://github.com/EduardoNovato/pca-music-seminario.git
+    cd pca-ionic-music
+    ```
 2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 3. Instala el CLI de Ionic:
 
-```bash
- npm install -g @ionic/cli
-```
+    ```bash
+    npm install -g @ionic/cli
+    ```
 
 3. Ejecuta la app:
-   ```bash
-   ionic serve
-   ```
+    ```bash
+    ionic serve
+    ```
 
 ## Estructura del proyecto
 
@@ -60,7 +60,7 @@ src/
     core/
       guards/         # Guardas de navegación
       models/         # Modelos de datos
-      services/       # Servicios (auth, storage)
+      services/       # Servicios (auth, storage, consumo de API de música)
     screens/
       menu/           # Menu Desplegable
       home/           # Pantalla principal
@@ -75,12 +75,13 @@ src/
 
 ## Uso básico
 
-1. Al abrir la app, verás una introducción con slides.
-2. Puedes iniciar sesión con el usuario de prueba:
+- Al abrir la app, verás una introducción con slides.
+- Puedes iniciar sesión con el usuario de prueba:
    - **Email:** ejco@gmail.com
    - **Password:** 12345678
-3. Accede al home y explora las canciones disponibles.
-4. Cambia entre tema claro y oscuro desde la pantalla principal.
+- Tras iniciar sesión, accede al home donde la app se conecta automáticamente a una API para obtener y mostrar el listado de canciones disponibles en tiempo real.
+- Explora las canciones, imágenes y descripciones obtenidas desde la API.
+- Cambia entre tema claro y oscuro desde la pantalla principal. La preferencia se guarda localmente.
 
 ## Créditos y contacto
 
