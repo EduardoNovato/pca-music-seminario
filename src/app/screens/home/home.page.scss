@@ -115,7 +115,8 @@
   padding: 8px;
 }
 
-.album-card {
+// Tarjetas reutilizables para álbum y artista
+.card-common {
   background: #f8f9fa;
   border-radius: 16px;
   padding: 16px;
@@ -126,21 +127,37 @@
   overflow: hidden;
 }
 
-.album-card:hover {
+.card-common:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
   border-color: #667eea;
   background: white;
 }
 
-.album-image-container {
+.album-card,
+.artist-card {
+  @extend .card-common;
+}
+
+.album-card.loading,
+.artist-card.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.album-card.loading .album-image,
+.artist-card.loading .artist-image {
+  filter: blur(2px);
+}
+
+.card-image-container {
   position: relative;
   margin-bottom: 12px;
   border-radius: 12px;
   overflow: hidden;
 }
 
-.album-image {
+.card-image {
   width: 100%;
   height: 120px;
   object-fit: cover;
@@ -148,7 +165,22 @@
   transition: transform 0.3s ease;
 }
 
-.album-card:hover .album-image {
+.card-common:hover .card-image {
+  transform: scale(1.05);
+}
+
+.album-image-container,
+.artist-image-container {
+  @extend .card-image-container;
+}
+
+.album-image,
+.artist-image {
+  @extend .card-image;
+}
+
+.album-card:hover .album-image,
+.artist-card:hover .artist-image {
   transform: scale(1.05);
 }
 
@@ -167,7 +199,7 @@
   border-radius: 12px;
 }
 
-.album-card:hover .play-overlay {
+.card-common:hover .play-overlay {
   opacity: 1;
 }
 
@@ -177,11 +209,11 @@
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
-.album-info {
+.card-info {
   text-align: center;
 }
 
-.album-title {
+.card-title {
   font-size: 16px;
   font-weight: 600;
   color: #2c3e50;
@@ -189,13 +221,28 @@
   line-height: 1.3;
 }
 
-.album-subtitle {
+.card-subtitle {
   font-size: 12px;
   color: #6c757d;
   margin: 0;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.album-info,
+.artist-info {
+  @extend .card-info;
+}
+
+.album-title,
+.artist-name {
+  @extend .card-title;
+}
+
+.album-subtitle,
+.artist-subtitle {
+  @extend .card-subtitle;
 }
 
 /* Actions Section */
@@ -206,73 +253,15 @@
 .action-btn {
   --border-color: rgba(255, 255, 255, 0.3);
   --color: white;
-  --border-radius: 12px;
-  --padding-top: 16px;
-  --padding-bottom: 16px;
-  font-weight: 600;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.1);
+  padding: 0 16px 16px 16px;
 }
 
-.action-btn:hover {
-  --background: rgba(255, 255, 255, 0.2);
-  --border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+.albums-section {
+  padding: 20px 16px;
 }
 
-/* Dark mode adjustments */
-.dark-mode {
-  .albums-section {
-    background: rgba(255, 255, 255, 0.95);
-  }
-
-  .album-card {
-    background: #f1f3f4;
-  }
-
-  .album-card:hover {
-    background: white;
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .welcome-title {
-    font-size: 24px;
-  }
-
-  .welcome-subtitle {
-    font-size: 14px;
-  }
-
-  .section-title {
-    font-size: 20px;
-  }
-
-  .album-image {
-    height: 100px;
-  }
-
-  .album-title {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .content-container {
-    padding: 0 16px 16px 16px;
-  }
-
-  .albums-section {
-    padding: 20px 16px;
-  }
-
-  .welcome-section {
-    padding: 32px 0 24px 0;
-  }
+.welcome-section {
+  padding: 32px 0 24px 0;
 }
 
 /* Swiper customization */
@@ -280,17 +269,7 @@ swiper-container {
   --swiper-theme-color: #667eea;
 }
 
-/* Loading states */
-.album-card.loading {
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-.album-card.loading .album-image {
-  filter: blur(2px);
-}
-
-/* Animation for card entrance */
+/* Animación para tarjetas */
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -303,19 +282,23 @@ swiper-container {
   }
 }
 
-.album-card {
+.album-card,
+.artist-card {
   animation: slideInUp 0.6s ease forwards;
 }
 
-.album-card:nth-child(2) {
+.album-card:nth-child(2),
+.artist-card:nth-child(2) {
   animation-delay: 0.1s;
 }
 
-.album-card:nth-child(3) {
+.album-card:nth-child(3),
+.artist-card:nth-child(3) {
   animation-delay: 0.2s;
 }
 
-.album-card:nth-child(4) {
+.album-card:nth-child(4),
+.artist-card:nth-child(4) {
   animation-delay: 0.3s;
 }
 
@@ -434,4 +417,45 @@ swiper-container {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.music-footer {
+  padding: 10px;
+  background: var(--ion-background-color);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.time-display {
+  font-size: 0.8rem;
+  padding: 0 10px;
+}
+
+.player-progress-bar {
+  --progress-background: #007bff;
+  height: 6px;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.footer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+}
+
+.footer-icon {
+  font-size: 22px;
+  color: var(--ion-color-primary);
+  cursor: pointer;
+}
+
+.footer-song-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ion-text-color);
+  text-align: center;
+  flex-grow: 1;
+  padding: 0 10px;
 }

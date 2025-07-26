@@ -27,7 +27,7 @@ export class MusicService {
       });
   }
 
-  async getAlbum(id: string) {
+  async getSongsByAlbum(id: string) {
     return fetch(`${this.url}/tracks/album/${id}`)
       .then(response => response.json())
       .catch(error => {
@@ -45,8 +45,8 @@ export class MusicService {
       });
   }
 
-  async getArtist(id: string) {
-    return fetch(`${this.url}/artists/${id}`)
+  async getSongsByArtists(id: string) {
+    return fetch(`${this.url}/tracks/artist/${id}`)
       .then(response => response.json())
       .catch(error => {
         console.error('Error fetching artist:', error);

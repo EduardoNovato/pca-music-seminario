@@ -21,6 +21,15 @@ export class HomePage implements OnInit {
   tracks: any;
   albums: any;
   artists: any;
+  song: any={
+    name: '',
+    preview_url: '',
+    playing: false
+  };
+  currentSong: any;
+  newTime: any;
+  liked: boolean = false;
+  favorites: any;
 
   constructor(private storageServcie: StorageService, private router: Router, private musicService: MusicService, private modalController: ModalController) {}
 
@@ -59,7 +68,7 @@ export class HomePage implements OnInit {
 
   async showSongs(albumId: string) {
     console.log('Album ID:', albumId);
-    const songs = await this.musicService.getAlbum(albumId);
+    const songs = await this.musicService.getSongsByAlbum(albumId);
     console.log('Songs for album:', songs);
     const modal = await this.modalController.create({
       component: SongModalPage,
@@ -67,21 +76,36 @@ export class HomePage implements OnInit {
         songs: songs,
       } ,
     });
+    modal.onDidDismiss().then((result) => {
+      if(result.data){
+        console.log("cancion recibida ", result.data);
+        this.song = result.data;
+      }
+    })
     await modal.present();
   }
 
-  async showArtist(artistId: string) {
-    console.log('Artist ID:', artistId);
-    const artist = await this.musicService.getArtist(artistId);
-    console.log('Artist details:', artist);
-
+  async showSongsByArtists(songId: string) {
+    const song = await this.musicService.getSongsByArtists(songId);
+    const modal = await this.modalController.create({
+      component: SongModalPage,
+      componentProps: {
+        songs: song,
+      },
+    });
+    modal.onDidDismiss().then((result) => {
+      if(result.data){
+        console.log("cancion recibida ", result.data);
+        this.song = result.data;
+      }
+    })
+    await modal.present();
   }
 
   async cambiarColor() {
     this.modoOscuro = !this.modoOscuro;
     this.rotate = this.modoOscuro ? 180 : 0;
 
-    // Toggle dark mode class on body
     document.body.classList.toggle('dark-mode', this.modoOscuro);
 
     await this.storageServcie.set('theme', this.modoOscuro ? 'dark' : 'light');
@@ -101,5 +125,35 @@ export class HomePage implements OnInit {
     console.log('Volver');
     this.router.navigateByUrl('/intro');
     this.storageServcie.remove('nav');
+  }
+
+  play(){
+    this.currentSong = new Audio(this.song.preview_url);
+    this.currentSong.play();
+    this.currentSong.addEventListener("timeupdate", ()=>{
+      this.newTime = this.currentSong.currentTime / this.currentSong.duration;
+    })
+    this.song.playing = true;
+  }
+
+  pausa(){
+    this.currentSong.pause();
+    this.song.playing = false;
+  }
+
+  formatTime(seconds: number){
+    if(!seconds || isNaN(seconds)) return "0:00";
+    const minutes = Math.floor(seconds/60);
+    const remaningSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remaningSeconds.toString().padStart(2, '0')}`
+  }
+
+  toggleLike(){
+    this.liked = !this.liked;
+    if (this.liked) {
+      console.log('Canción marcada como favorita');
+    } else {
+      console.log('Favorito removido');
+    }
   }
 }
