@@ -47,7 +47,6 @@ const VALIDATOR_MESSAGES: Record<string, { type: string; message: string }[]> =
 })
 export class RegisterPage implements OnInit {
   register!: FormGroup;
-  showPassword = false;
 
   errorMessage: any = '';
 
@@ -89,10 +88,6 @@ export class RegisterPage implements OnInit {
     });
 
     await toast.present();
-  }
-
-  togglePassword() {
-    this.showPassword = !this.showPassword;
   }
 
   async registerUser(credentials: registerCredentials) {

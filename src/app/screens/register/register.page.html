@@ -1,116 +1,60 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Crear Cuenta</ion-title>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="register-content">
-  <div class="register-container">
-    <!-- Header Section -->
-    <div class="header-section">
-      <div class="logo-container">
-        <ion-icon name="person-add" class="logo-icon"></ion-icon>
-      </div>
-      <h1 class="welcome-title">Únete</h1>
-      <p class="welcome-subtitle">Crea tu cuenta para comenzar</p>
-    </div>
-
-    <!-- Form Section -->
-    <div class="form-section">
-      <form [formGroup]="register" (ngSubmit)="registerUser(register.value)">
-        <div class="input-group">
-          <ion-item lines="none" class="custom-input">
-            <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
-            <ion-input
-              type="text"
-              placeholder="Nombre"
-              formControlName="name"
-              (ionBlur)="presentToast('name')"
-              class="input-field"
-            ></ion-input>
-          </ion-item>
-        </div>
-
-        <div class="input-group">
-          <ion-item lines="none" class="custom-input">
-            <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
-            <ion-input
-              type="text"
-              placeholder="Apellido"
-              formControlName="apellido"
-              (ionBlur)="presentToast('apellido')"
-              class="input-field"
-            ></ion-input>
-          </ion-item>
-        </div>
-
-        <div class="input-group">
-          <ion-item lines="none" class="custom-input">
-            <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
-            <ion-input
-              type="email"
-              placeholder="Correo electrónico"
-              formControlName="email"
-              (ionBlur)="presentToast('email')"
-              class="input-field"
-            ></ion-input>
-          </ion-item>
-        </div>
-
-        <div class="input-group">
-          <ion-item lines="none" class="custom-input">
-            <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
-            <ion-input
-              [type]="showPassword ? 'text' : 'password'"
-              placeholder="Contraseña"
-              formControlName="password"
-              (ionBlur)="presentToast('password')"
-              class="input-field"
-            ></ion-input>
-            <ion-button
-              fill="clear"
-              slot="end"
-              (click)="togglePassword()"
-              class="password-toggle"
-            >
-              <ion-icon
-                [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
-                class="toggle-icon"
-              ></ion-icon>
-            </ion-button>
-          </ion-item>
-        </div>
-
-        <ion-button
-          expand="block"
-          type="submit"
-          [disabled]="register.invalid"
-          class="register-btn"
-        >
-          <ion-icon name="person-add-outline" slot="start"></ion-icon>
-          Crear Cuenta
-        </ion-button>
-      </form>
-    </div>
-
-    <!-- Footer Section -->
-    <div class="footer-section">
-      <div class="divider">
-        <span class="divider-text">o</span>
-      </div>
-
-      <div class="login-section">
-        <p class="login-text">¿Ya tienes cuenta?</p>
-        <ion-button
-          fill="outline"
-          expand="block"
-          routerLink="/login"
-          class="login-link-btn"
-        >
-          <ion-icon name="log-in-outline" slot="start"></ion-icon>
-          Iniciar Sesión
-        </ion-button>
-      </div>
-    </div>
+<ion-content>
+  <figure class="profile-default-image ion-text-center">
+    <p>Ingresa tus datos</p>
+  </figure>
+  <form [formGroup]="register" (ngSubmit)="registerUser(register.value)">
+    <ion-item>
+      <ion-input
+        label="Nombre"
+        labelPlacement="floating"
+        formControlName="name"
+        (ionBlur)="presentToast('name')"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="Apellido"
+        labelPlacement="floating"
+        formControlName="apellido"
+        (ionBlur)="presentToast('apellido')"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="Email"
+        labelPlacement="floating"
+        formControlName="email"
+        (ionBlur)="presentToast('email')"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        type="password"
+        label="Password"
+        labelPlacement="floating"
+        formControlName="password"
+        (ionBlur)="presentToast('password')"
+      ></ion-input>
+    </ion-item>
+    <ion-button
+      expand="full"
+      shape="round"
+      color="success"
+      type="submit"
+      [disabled]="register.invalid"
+    >
+      Login
+    </ion-button>
+  </form>
+  <div class="ion-text-center" style="margin-top: 16px">
+    <ion-text>
+      <ion-router-link routerLink="/register"> Login aquí</ion-router-link>
+    </ion-text>
   </div>
 </ion-content>
