@@ -30,6 +30,7 @@ export class HomePage implements OnInit {
   newTime: any;
   liked: boolean = false;
   favorites: any;
+  secciones: any[] = [];
 
   constructor(private storageServcie: StorageService, private router: Router, private musicService: MusicService, private modalController: ModalController) {}
 
@@ -38,6 +39,23 @@ export class HomePage implements OnInit {
     await this.loadTraks();
     await this.loadAlbums();
     await this.loadArtists();
+    this.secciones = [
+    {
+      titulo: 'Álbumes',
+      icono: 'library-outline',
+      tipo: 'Álbum',
+      items: this.albums,
+      accion: (id: string) => this.showSongs(id)
+    },
+    {
+      titulo: 'Artistas',
+      icono: 'person-outline',
+      tipo: 'Artista',
+      items: this.artists,
+      accion: (id: string) => this.showSongsByArtists(id)
+    },
+  ];
+
   }
 
   async loadTraks() {
