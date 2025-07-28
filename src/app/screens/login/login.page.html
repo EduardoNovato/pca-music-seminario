@@ -4,11 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<<<<<<< HEAD
 <ion-content class="login-content">
-=======
-<ion-content [fullscreen]="true" class="login-content">
->>>>>>> 579ede0f084586cbdbf13dc46a6b01754bd750b0
   <div class="login-container">
     <!-- Header Section -->
     <div class="header-section">
@@ -24,7 +20,11 @@
       <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
         <div class="input-group">
           <ion-item lines="none" class="custom-input">
-            <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+            <ion-icon
+              name="mail-outline"
+              slot="start"
+              class="input-icon"
+            ></ion-icon>
             <ion-input
               type="email"
               placeholder="Correo electrónico"
@@ -37,7 +37,11 @@
 
         <div class="input-group">
           <ion-item lines="none" class="custom-input">
-            <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+            <ion-icon
+              name="lock-closed-outline"
+              slot="start"
+              class="input-icon"
+            ></ion-icon>
             <ion-input
               [type]="showPassword ? 'text' : 'password'"
               placeholder="Contraseña"
